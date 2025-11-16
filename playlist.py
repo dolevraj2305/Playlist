@@ -36,14 +36,18 @@ liked_songs = {
     }
 }
 def name_song():
-    NameSong = input("Enter name song: ")
+    NameSong = input("Enter name of the song: ")
     return NameSong
 def artist_song():
     artist = input("Enter name of artist: ")
     return artist
 def time_of_song():
     minute = int(input("Enter number of minutes: "))
+    while minute < 0:
+        minute = int(input("Enter number of minutes: "))
     second = int(input("Enter number of seconds: "))
+    while second < 0 or second >59:
+        second = int(input("Enter number of seconds: "))
     time = [minute,second]
     return tuple(time)
 def genre_song():
@@ -54,10 +58,12 @@ def add_to_dict(name,artist,time,genre):
     liked_songs[name] = song_setting
 def print_liked_songs():
     for i in liked_songs:
-        print(f"{i}:\nThe artist: {liked_songs[i][0]}\nThe duration: {liked_songs[i][1]}\nThe genre: {liked_songs[i][2]}")
+        print(f"{i}:\nThe artist: {liked_songs[i]["artist"]}\nThe duration: {liked_songs[i]["duration"]}\nThe genre: {liked_songs[i]["genre"]}")
     print()
 def main():
-    number_of_add = int(input("Enter how many songs you want to add"))
+    number_of_add = int(input("Enter how many songs you want to add:"))
+    while number_of_add < 0:
+        number_of_add = int(input("Enter how many songs you want to add:"))
     for i in range(number_of_add):
         name_of_song = name_song()
         artist = artist_song()
