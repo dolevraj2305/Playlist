@@ -58,14 +58,32 @@ def add_to_dict(name,artist,time,genre):
     liked_songs[name] = song_setting
 def remove_song():
     song = input("Enter song you're want to check if it in liked songs: ")
+    not_in_list = True
     for i in liked_songs:
         if song.lower() == i.lower():
             print(f"{song} is in the list\ndo you want to remove this from the list")
             remove_or_not = input()
+            not_in_list = False
             if remove_or_not.lower() == "yes":
                 liked_songs.pop(i)
                 break
-
+    if not_in_list:
+        print("Your song not in the list")
+    print_liked_songs()
+def remove_song_of_artist():
+    artist = input("Which artist you want to remove all of his songs from your liked song list: ")
+    counter_songs = 0
+    for i in liked_songs:
+        if liked_songs[i]["artist"].lower() == artist.lower():
+            counter_songs += 1
+    for counter in range(counter_songs):
+        for song in liked_songs:
+            if liked_songs[song]["artist"].lower() == artist.lower():
+                liked_songs.pop(song)
+                break
+    if counter_songs == 0:
+        print("Your artist not in the list")
+    print_liked_songs()
 def print_liked_songs():
     for i in liked_songs:
         print(f"{i}:\nThe artist: {liked_songs[i]["artist"]}\nThe duration: {liked_songs[i]["duration"]}\nThe genre: {liked_songs[i]["genre"]}")
@@ -82,5 +100,5 @@ def main():
         add_to_dict(name_of_song,artist,time_song,genre)
     print_liked_songs()
     remove_song()
-    print_liked_songs()
+    remove_song_of_artist()
 main()
